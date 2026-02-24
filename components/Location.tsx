@@ -1,12 +1,7 @@
 "use client";
 import { useState } from "react";
 import Image from "next/image";
-import {
-  IoSend,
-  IoLocationSharp,
-  IoCall,
-  IoTime,
-} from "react-icons/io5";
+import { IoSend, IoLocationSharp, IoCall, IoTime } from "react-icons/io5";
 
 type CityKey = "tomaszow" | "hrubieszow";
 
@@ -58,17 +53,13 @@ export default function Location() {
   return (
     <section
       id="kontakt"
-      className="
-        relative w-full min-h-screen bg-black text-white overflow-hidden
-        flex flex-col justify-end md:justify-center
-        pb-20 sm:pb-24 md:pb-0
-      "
+      className="relative w-full bg-black text-white overflow-hidden flex flex-col justify-center py-16 sm:py-20"
     >
       {/* MAPA */}
       <div className="absolute inset-0 z-0">
         <iframe
           key={activeCity}
-          className="w-full h-full"
+          className="w-full h-[120%] sm:h-full" // większa mapa na mobile
           style={{
             border: 0,
             filter: "grayscale(100%) brightness(0.4) contrast(1.2)",
@@ -82,67 +73,60 @@ export default function Location() {
       </div>
 
       {/* KONTENER */}
-      <div className="relative z-10 w-full max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 flex items-end md:items-center justify-center">
+      <div className="relative z-10 w-full max-w-[640px] mx-auto px-3 sm:px-6 flex items-center justify-center">
         {/* KARTA */}
         <div
           className={`
             w-full 
-            max-w-[640px] xl:max-w-[700px]
-            mb-8 sm:mb-10 md:mb-0
-            bg-black/95 backdrop-blur-2xl
+            bg-black/95 backdrop-blur-xl
             border border-white/10
-            rounded-t-[2rem] md:rounded-3xl
-            shadow-[0_0_50px_rgba(0,0,0,0.6)]
+            rounded-t-[1.5rem] sm:rounded-2xl
+            shadow-[0_0_30px_rgba(0,0,0,0.6)]
             transition-all duration-300 ease-out
             ${
               isAnimating
-                ? "opacity-0 translate-y-6 scale-[0.97]"
+                ? "opacity-0 translate-y-4 scale-[0.97]"
                 : "opacity-100 translate-y-0 scale-100"
             }
-
-            /* KLUCZ POD 14" LAPTOP */
-            max-h-[85vh] 
-            md:max-h-[90vh]
             overflow-y-auto
+            max-h-[90vh] sm:max-h-[90vh]
           `}
         >
           {/* Uchwyt mobile */}
-          <div className="w-full flex justify-center pt-3 pb-1 md:hidden">
-            <div className="w-12 h-1 bg-neutral-600 rounded-full" />
+          <div className="w-full flex justify-center pt-3 pb-2 md:hidden">
+            <div className="w-10 h-1 bg-neutral-600 rounded-full" />
           </div>
 
           {/* CONTENT */}
-          <div className="px-4 py-5 sm:px-6 sm:py-6 md:px-10 md:py-10">
+          <div className="px-3 py-5 sm:px-6 sm:py-6 md:px-10 md:py-10">
             {/* HEADER */}
-            <div className="mb-5 md:mb-7 border-b border-white/10 pb-4 md:pb-6">
-              <div className="flex items-center gap-3 mb-4">
-                {/* LOGO – bez border, idealne pod czarne PNG */}
+            <div className="mb-4 sm:mb-6 border-b border-white/10 pb-3 sm:pb-5">
+              <div className="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
                 <div className="flex items-center justify-center shrink-0">
                   <Image
                     src="/logo-aktywna.png"
                     alt="Aktywna Przemiana logo"
-                    width={56}
-                    height={56}
+                    width={48}
+                    height={48}
                     priority
-                    className="object-contain w-12 h-12 sm:w-14 sm:h-14"
+                    className="w-10 h-10 sm:w-12 sm:h-12"
                   />
                 </div>
-
                 <div>
-                  <p className="text-[9px] sm:text-[10px] font-bold tracking-[0.3em] uppercase text-neutral-500">
+                  <p className="text-[8px] sm:text-[9px] font-bold tracking-[0.2em] uppercase text-neutral-500">
                     Aktywna Przemiana
                   </p>
-                  <h2 className="text-lg sm:text-xl md:text-2xl font-black leading-tight">
+                  <h2 className="text-base sm:text-lg md:text-xl font-black leading-tight">
                     {currentData.name}
                   </h2>
                 </div>
               </div>
 
               {/* SWITCHER */}
-              <div className="flex bg-neutral-900/60 p-1 rounded-xl border border-white/10">
+              <div className="flex bg-neutral-900/60 p-1 rounded-lg border border-white/10 text-[9px] sm:text-[10px]">
                 <button
                   onClick={() => handleCityChange("tomaszow")}
-                  className={`flex-1 py-2 text-[10px] sm:text-xs font-bold uppercase tracking-widest rounded-lg transition ${
+                  className={`flex-1 py-1 sm:py-2 font-bold uppercase tracking-widest rounded transition ${
                     activeCity === "tomaszow"
                       ? "text-white"
                       : "text-neutral-500 hover:text-white"
@@ -158,7 +142,7 @@ export default function Location() {
                 </button>
                 <button
                   onClick={() => handleCityChange("hrubieszow")}
-                  className={`flex-1 py-2 text-[10px] sm:text-xs font-bold uppercase tracking-widest rounded-lg transition ${
+                  className={`flex-1 py-1 sm:py-2 font-bold uppercase tracking-widest rounded transition ${
                     activeCity === "hrubieszow"
                       ? "text-white"
                       : "text-neutral-500 hover:text-white"
@@ -176,47 +160,45 @@ export default function Location() {
             </div>
 
             {/* INFO */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-5 md:mb-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mb-4 sm:mb-5 text-sm">
               <a
                 href={`tel:${currentData.phone}`}
-                className="flex items-center gap-3 p-3 bg-neutral-900/50 rounded-xl border border-white/5"
+                className="flex items-center gap-2 p-2 bg-neutral-900/50 rounded-lg border border-white/5"
               >
-                <IoCall className="text-lg text-neutral-400" />
+                <IoCall className="text-base text-neutral-400" />
                 <div>
-                  <p className="text-[10px] text-neutral-500 uppercase font-bold">
+                  <p className="text-[9px] text-neutral-500 uppercase font-bold">
                     Telefon
                   </p>
                   <p className="text-sm font-medium">{currentData.phone}</p>
                 </div>
               </a>
 
-              <div className="flex items-center gap-3 p-3 bg-neutral-900/50 rounded-xl border border-white/5">
-                <IoTime className="text-lg text-neutral-400" />
+              <div className="flex items-center gap-2 p-2 bg-neutral-900/50 rounded-lg border border-white/5">
+                <IoTime className="text-base text-neutral-400" />
                 <div>
-                  <p className="text-[10px] text-neutral-500 uppercase font-bold">
+                  <p className="text-[9px] text-neutral-500 uppercase font-bold">
                     Otwarte
                   </p>
-                  <p className="text-sm font-medium">
-                    {currentData.hours}
-                  </p>
+                  <p className="text-sm font-medium">{currentData.hours}</p>
                 </div>
               </div>
             </div>
 
             {/* FORM */}
-            <form onSubmit={handleSubmit} className="space-y-3">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <form onSubmit={handleSubmit} className="space-y-2 sm:space-y-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                 <input
                   type="text"
                   placeholder="Imię"
                   required
-                  className="w-full bg-neutral-900/80 border border-neutral-700 rounded-xl py-3 px-3.5 text-sm placeholder-neutral-500 focus:outline-none focus:border-[#00ac49]"
+                  className="w-full bg-neutral-900/80 border border-neutral-700 rounded-lg py-2 px-2 text-sm placeholder-neutral-500 focus:outline-none focus:border-[#00ac49]"
                 />
                 <input
                   type="tel"
                   placeholder="Telefon"
                   required
-                  className="w-full bg-neutral-900/80 border border-neutral-700 rounded-xl py-3 px-3.5 text-sm placeholder-neutral-500 focus:outline-none focus:border-[#00ac49]"
+                  className="w-full bg-neutral-900/80 border border-neutral-700 rounded-lg py-2 px-2 text-sm placeholder-neutral-500 focus:outline-none focus:border-[#00ac49]"
                 />
               </div>
 
@@ -224,18 +206,18 @@ export default function Location() {
                 rows={3}
                 placeholder="Twój cel treningowy..."
                 required
-                className="w-full bg-neutral-900/80 border border-neutral-700 rounded-xl py-3 px-3.5 text-sm placeholder-neutral-500 focus:outline-none focus:border-[#00ac49] resize-none"
+                className="w-full bg-neutral-900/80 border border-neutral-700 rounded-lg py-2 px-2 text-sm placeholder-neutral-500 focus:outline-none focus:border-[#00ac49] resize-none"
               />
 
               <button
                 type="submit"
-                className="w-full flex items-center justify-center gap-2 rounded-xl py-3.5 text-sm font-black uppercase tracking-widest text-white active:scale-95 transition"
+                className="w-full flex items-center justify-center gap-1 sm:gap-2 rounded-lg py-2.5 text-sm font-black uppercase tracking-widest text-white active:scale-95 transition"
                 style={{
                   backgroundColor: currentData.accent,
-                  boxShadow: `0 10px 25px -5px ${currentData.accentGlow}`,
+                  boxShadow: `0 8px 20px -5px ${currentData.accentGlow}`,
                 }}
               >
-                Wyślij Zgłoszenie <IoSend className="text-lg" />
+                Wyślij <IoSend className="text-base sm:text-lg" />
               </button>
 
               <a
@@ -244,9 +226,9 @@ export default function Location() {
                 )}`}
                 target="_blank"
                 rel="noreferrer"
-                className="w-full flex items-center justify-center gap-2 border border-white/20 rounded-xl py-3 text-xs font-bold uppercase tracking-widest text-neutral-300 hover:text-white hover:bg-white/5 transition"
+                className="w-full flex items-center justify-center gap-1 sm:gap-2 border border-white/20 rounded-lg py-2 text-xs font-bold uppercase tracking-widest text-neutral-300 hover:text-white hover:bg-white/5 transition"
               >
-                <IoLocationSharp className="text-base" />
+                <IoLocationSharp className="text-sm sm:text-base" />
                 Nawiguj do nas
               </a>
             </form>
