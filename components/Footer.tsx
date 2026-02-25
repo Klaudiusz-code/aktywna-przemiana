@@ -33,7 +33,7 @@ export default function Footer() {
           <div className="lg:col-span-4 space-y-8">
             <div className="flex flex-col items-center md:items-start">
               <img
-                src="/logo-aktywna.png"
+                src="/logos.svg"
                 alt="Aktywna Przemiana Logo"
                 className="h-24 w-auto object-contain mb-6 drop-shadow-lg"
               />

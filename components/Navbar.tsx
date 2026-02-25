@@ -39,19 +39,22 @@ export default function Navbar() {
           sticky left-0 right-0 z-30 transition-all duration-300 ease-out border-b
           ${
             scrolled
-              ? "top-0 bg-[#0a0a0a]/90 backdrop-blur-xl border-white/5 shadow-2xl py-3"
-              : "md:top-[40px] top-0 bg-[#000] border-transparent py-5"
+              ? "top-0 bg-[#0a0a0a]/90 backdrop-blur-xl border-white/5 shadow-2xl "
+              : "md:top-[40px] top-0 bg-[#000] border-transparent py-1"
           }
         `}
       >
-        <div className="container mx-auto px-4 md:px-6 flex items-center justify-between">
-          <a href="#" className="relative h-10 w-auto block z-10">
+        <div className="container mx-auto px-4 md:px-6 flex items-center justify-between py-1">
+          <a
+            href="#"
+            className="relative h-14 md:h-16 w-auto block overflow-hidden"
+          >
             <Image
-              src="/logo-aktywna.svg" 
+              src="/logos.svg"
               alt="Logo"
-              width={160}
-              height={40}
-              className="h-full w-auto object-contain" 
+              width={200}
+              height={60}
+              className="h-full w-auto object-contain"
               priority
             />
           </a>

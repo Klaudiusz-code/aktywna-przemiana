@@ -32,8 +32,7 @@ export default function Services() {
       title: "Trening EMS",
       subtitle: "Rewolucja w treningu.",
       desc: "Elektrostymulacja mięśni aktywuje 90% Twoich włókien jednocześnie. Oznacza to, że 20-minutowa sesja daje efekty równoważne 2-godzinnemu treningowi na siłowni.",
-      image:
-        "ems.png",
+      image: "ems.png",
       icon: <IoFlash className="w-6 h-6" />,
       duration: "20 min",
       stats: [
@@ -78,7 +77,7 @@ export default function Services() {
           <span className="inline-block px-3 py-1 mb-6 rounded-full border border-[#00ac49]/30 bg-[#00ac49]/5 text-[#00ac49] font-black text-[10px] uppercase tracking-[0.3em]">
             Oferta Studia
           </span>
-      
+
           <p className="text-gray-400 max-w-2xl mx-auto text-lg font-light">
             Wybierz intensywność i styl, który pasuje do Twojego życia.
           </p>

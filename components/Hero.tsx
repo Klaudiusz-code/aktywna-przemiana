@@ -86,6 +86,7 @@ export default function Hero() {
             >
               <div className="flex items-center justify-center md:justify-start gap-3 mb-6">
                 <div className="w-8 md:w-12 h-[1px] bg-[#00ac49] shadow-[0_0_10px_#00ac49]"></div>
+                
                 <span className="text-[#00ac49] text-[10px] md:text-xs font-bold uppercase tracking-[0.3em]">
                   Aktywna Przemiana
                 </span>
