@@ -32,25 +32,21 @@ export default function Hero() {
       icon: FaDumbbell,
       title: "Trening Personalny",
       desc: "Plan dopasowany do Ciebie",
-      link: "#personalny",
     },
     {
       icon: FaFire,
       title: "EMS",
       desc: "Szybka Stymulacja Mięśni",
-      link: "#ems",
     },
     {
       icon: FaHeartbeat,
       title: "Redukcja Tłuszczu",
       desc: "Efektywnie i bezpiecznie",
-      link: "#redukcja",
     },
     {
       icon: FaUsers,
       title: "Służby Mundurowe",
       desc: "Policja, Straż, Wojsko",
-      link: "#sluzby",
     },
   ];
 
@@ -123,7 +119,6 @@ export default function Hero() {
               {menuItems.map((item, index) => (
                 <a
                   key={index}
-                  href={item.link}
                   className={`
                     group relative flex items-center justify-between px-5 py-4 md:px-6 md:py-5 rounded-xl border border-white/5
                     backdrop-blur-xl transition-all duration-300 ease-out overflow-hidden bg-black/30
