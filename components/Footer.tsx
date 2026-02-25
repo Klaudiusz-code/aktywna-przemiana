@@ -35,7 +35,7 @@ export default function Footer() {
               <img
                 src="/logos.svg"
                 alt="Aktywna Przemiana Logo"
-                className="h-24 w-auto object-contain mb-6 drop-shadow-lg"
+                className="h-32 w-auto object-contain mb-6 drop-shadow-lg"
               />
               <p className="text-gray-400 text-sm leading-relaxed text-center md:text-left">
                 Zmień swoje życie dzięki profesjonalnemu treningowi personalnemu

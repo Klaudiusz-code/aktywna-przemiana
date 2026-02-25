@@ -14,11 +14,7 @@ export default function Navbar() {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 40) {
-        setScrolled(true);
-      } else {
-        setScrolled(false);
-      }
+      setScrolled(window.scrollY > 40);
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
@@ -39,24 +35,27 @@ export default function Navbar() {
           sticky left-0 right-0 z-30 transition-all duration-300 ease-out border-b
           ${
             scrolled
-              ? "top-0 bg-[#0a0a0a]/90 backdrop-blur-xl border-white/5 shadow-2xl "
-              : "md:top-[40px] top-0 bg-[#000] border-transparent py-1"
+              ? "top-0 bg-[#0a0a0a]/90 backdrop-blur-xl border-white/5 shadow-2xl"
+              : "md:top-[40px] top-0 bg-black border-transparent"
           }
         `}
       >
-        <div className="container mx-auto px-4 md:px-6 flex items-center justify-between py-1">
-          <a
-            href="#"
-            className="relative h-14 md:h-16 w-auto block overflow-hidden"
-          >
-            <Image
-              src="/logos.svg"
-              alt="Logo"
-              width={200}
-              height={60}
-              className="h-full w-auto object-contain"
-              priority
-            />
+        <div className="container mx-auto px-4 md:px-6 flex items-center justify-between h-[70px] relative">
+          {/* 🔥 LOGO - większe niż navbar */}
+          <a href="#" className="relative flex items-center">
+            <div className="absolute left-0 top-1/2 -translate-y-1/2">
+              <Image
+                src="/logos.svg"
+                alt="Logo"
+                width={220}
+                height={140}
+                priority
+                className="w-[76px] md:w-[98px] h-auto drop-shadow-[0_0_20px_rgba(0,172,73,0.35)]"
+              />
+            </div>
+
+            {/* spacer żeby menu się nie nachodziło */}
+            <div className="w-[220px] md:w-[300px]" />
           </a>
 
           <div className="hidden md:flex items-center gap-8">
@@ -94,7 +93,11 @@ export default function Navbar() {
         className={`
           fixed inset-0 z-[50] bg-[#050505] flex flex-col 
           transition-all duration-500 ease-in-out md:hidden
-          ${isOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}
+          ${
+            isOpen
+              ? "opacity-100 pointer-events-auto"
+              : "opacity-0 pointer-events-none"
+          }
         `}
       >
         <button
