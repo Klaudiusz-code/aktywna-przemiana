@@ -78,9 +78,7 @@ export default function Services() {
           <span className="inline-block px-3 py-1 mb-6 rounded-full border border-[#00ac49]/30 bg-[#00ac49]/5 text-[#00ac49] font-black text-[10px] uppercase tracking-[0.3em]">
             Oferta Studia
           </span>
-          <h2 className="text-3xl md:text-5xl lg:text-6xl font-black mb-6 leading-none tracking-tight">
-            Zbuduj Swoją <span className="text-[#00ac49]">Formę</span>
-          </h2>
+      
           <p className="text-gray-400 max-w-2xl mx-auto text-lg font-light">
             Wybierz intensywność i styl, który pasuje do Twojego życia.
           </p>
