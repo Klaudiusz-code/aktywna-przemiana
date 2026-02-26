@@ -55,16 +55,6 @@ export default function Navbar() {
           .hamburger.active span:nth-child(3) {
             transform: translateY(-7px) rotate(-45deg);
           }
-
-          @keyframes menuFade {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-          }
-
-          .mobile-link {
-            animation: menuFade 0.4s ease forwards;
-            opacity: 0;
-          }
         `}
       </style>
 
@@ -73,13 +63,12 @@ export default function Navbar() {
           fixed left-0 right-0 z-50 transition-all duration-500 border-b
           ${
             scrolled
-              ? "top-0 h-[70px] md:h-[80px] bg-[#050505]/90 backdrop-blur-xl border-white/5 shadow-xl"
-              : "top-0 md:top-6 h-[70px] md:h-[100px] bg-transparent border-transparent"
+              ? "top-0 h-[64px] sm:h-[70px] lg:h-[80px] bg-[#050505]/90 backdrop-blur-xl border-white/5 shadow-xl"
+              : "top-0 lg:top-6 h-[64px] sm:h-[75px] lg:h-[100px] bg-transparent border-transparent"
           }
         `}
       >
-        <div className="container mx-auto px-4 md:px-8 h-full flex items-center justify-between">
-          {/* LOGO */}
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10 h-full flex items-center justify-between">
           <a href="#" className="relative z-50 group flex items-center">
             <div className="absolute -inset-3 bg-[#00ac49]/10 blur-2xl rounded-full opacity-0 group-hover:opacity-100 transition duration-500"></div>
             <Image
@@ -88,28 +77,28 @@ export default function Navbar() {
               width={180}
               height={120}
               priority
-              className="relative w-[60px] md:w-[75px] h-auto object-contain drop-shadow-[0_6px_25px_rgba(0,0,0,0.6)] transition-transform duration-500 group-hover:scale-105"
+              className="relative w-[58px] sm:w-[65px] lg:w-[80px] h-auto object-contain drop-shadow-[0_6px_25px_rgba(0,0,0,0.6)] transition-transform duration-500 group-hover:scale-105"
             />
           </a>
 
-          <div className="hidden md:flex items-center gap-1">
+          <div className="hidden lg:flex items-center gap-2 xl:gap-4">
             {navItems.map((item, index) => (
               <a
                 key={index}
                 href={item.href}
-                className="relative group px-5 py-2 text-sm font-bold text-gray-400 uppercase tracking-wider transition-colors hover:text-white"
+                className="relative group px-5 xl:px-6 py-2 text-sm font-bold text-gray-400 uppercase tracking-wider transition-colors duration-300 hover:text-white"
               >
                 {item.name}
-                <span className="absolute left-1/2 -translate-x-1/2 bottom-0 w-0 h-[2px] bg-[#00ac49] transition-all duration-300 group-hover:w-8 shadow-[0_0_10px_#00ac49]"></span>
+                <span className="absolute left-1/2 -translate-x-1/2 -bottom-1 w-0 h-[2px] bg-[#00ac49] transition-all duration-300 group-hover:w-8 shadow-[0_0_10px_#00ac49]"></span>
               </a>
             ))}
 
             <a
               href="tel:+48609788088"
-              className="ml-6 flex items-center gap-2.5 bg-[#00ac49] text-black px-7 py-2.5 rounded-full font-bold text-sm 
-                         transition-all duration-300 ease-out
-                         hover:bg-white hover:shadow-[0_0_20px_rgba(255,255,255,0.4)]
-                         active:scale-95 relative overflow-hidden group"
+              className="ml-6 flex items-center gap-2 bg-[#00ac49] text-black px-6 py-2.5 rounded-full font-bold text-sm 
+              transition-all duration-300 ease-out
+              hover:bg-white hover:shadow-[0_0_20px_rgba(255,255,255,0.35)]
+              active:scale-95 relative overflow-hidden group"
             >
               <div className="absolute inset-0 bg-white/30 translate-y-full group-hover:translate-y-0 transition-transform duration-300 skew-y-12"></div>
               <IoCallOutline className="text-lg relative z-10" />
@@ -120,11 +109,13 @@ export default function Navbar() {
           <button
             onClick={() => setIsOpen(!isOpen)}
             aria-label="Menu"
-            className="md:hidden relative z-50"
+            className="lg:hidden relative z-50"
           >
             <div className="relative w-11 h-11 rounded-full border border-white/10 bg-white/5 backdrop-blur-md flex items-center justify-center hover:border-[#00ac49]/60 transition-all duration-300 hover:shadow-[0_0_20px_rgba(0,172,73,0.3)]">
               <div
-                className={`hamburger ${isOpen ? "active" : ""} flex flex-col gap-1.5`}
+                className={`hamburger ${
+                  isOpen ? "active" : ""
+                } flex flex-col gap-1.5`}
               >
                 <span />
                 <span />
@@ -135,13 +126,12 @@ export default function Navbar() {
         </div>
       </nav>
 
-      {}
       <div
         className={`
-    fixed inset-0 z-[60] bg-[#050505] flex flex-col
-    transition-all duration-500 ease-in-out md:hidden overflow-hidden
-    ${isOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}
-  `}
+          fixed inset-0 z-[60] bg-[#050505] flex flex-col
+          transition-all duration-500 ease-in-out lg:hidden overflow-hidden
+          ${isOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}
+        `}
       >
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute top-[-80px] right-[-80px] w-[220px] h-[220px] bg-[#00ac49]/10 blur-[100px] rounded-full"></div>
@@ -150,30 +140,29 @@ export default function Navbar() {
 
         <button
           onClick={() => setIsOpen(false)}
-          className="absolute top-4 right-4 z-50 p-2.5 rounded-full bg-white/5 border border-white/10 hover:border-[#00ac49] hover:text-[#00ac49] transition-all duration-300"
+          className="absolute top-5 right-5 z-50 p-2.5 rounded-full bg-white/5 border border-white/10 hover:border-[#00ac49] hover:text-[#00ac49] transition-all duration-300"
         >
           <IoClose className="text-xl" />
         </button>
 
-        <div className="relative z-10 flex flex-col h-full pt-20 pb-6 px-5">
-          <div className="flex items-center justify-center mb-6">
+        <div className="relative z-10 flex flex-col h-full pt-24 pb-8 px-6">
+          <div className="flex items-center justify-center mb-8">
             <Image
               src="/logonav.svg"
               alt="Logo"
               width={120}
               height={60}
-              className="w-[55px] h-auto opacity-80"
+              className="w-[60px] h-auto opacity-90"
             />
           </div>
 
-          {/* LINKI – CIAŚNIEJ I BEZ PRZESADY */}
-          <div className="flex flex-col gap-1">
+          <div className="flex flex-col gap-2">
             {navItems.map((item, index) => (
               <a
                 key={index}
                 href={item.href}
                 onClick={() => setIsOpen(false)}
-                className="group flex items-center justify-between py-4 px-4 rounded-xl border border-white/5 bg-white/[0.02] hover:bg-white/[0.05] transition-all duration-200"
+                className="group flex items-center justify-between py-4 px-5 rounded-xl border border-white/5 bg-white/[0.02] hover:bg-white/[0.05] transition-all duration-200"
               >
                 <div className="flex items-center gap-4">
                   <span className="text-sm font-black text-[#00ac49]/30 group-hover:text-[#00ac49] transition-colors font-mono">
@@ -190,21 +179,11 @@ export default function Navbar() {
             ))}
           </div>
 
-          {/* 🔥 MNIEJSZY PRZYCISK – NIE ROZPYCHA EKRANU */}
           <div className="mt-auto">
             <a
               href="tel:+48609788088"
               onClick={() => setIsOpen(false)}
-              className="
-          flex items-center justify-center gap-2
-          w-full bg-[#00ac49]
-          py-4 rounded-2xl
-          font-bold text-base uppercase tracking-wider
-          text-white
-          shadow-[0_0_35px_rgba(0,172,73,0.25)]
-          active:scale-[0.98]
-          transition-all duration-200
-        "
+              className="flex items-center justify-center gap-2 w-full bg-[#00ac49] py-4 rounded-2xl font-bold text-base uppercase tracking-wider text-white shadow-[0_0_30px_rgba(0,172,73,0.25)] active:scale-[0.98] transition-all duration-200"
             >
               <IoCallOutline className="text-lg" />
               Zadzwoń teraz
