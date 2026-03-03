@@ -9,6 +9,7 @@ import Footer from "@/components/Footer";
 import { Metadata } from "next";
 import Trainers from "@/components/Trainers";
 import Socials from "@/components/Socials";
+import Process from "@/components/Process";
 
 export const metadata: Metadata = {
   title: "Aktywna Przemiana | Trening Personalny i EMS",
@@ -23,6 +24,7 @@ export default function StudioPage() {
       <Navbar />
       <Hero />
       <Services />
+      <Process />
       <Trainers />
       <Benefits />
       <Gallery />
