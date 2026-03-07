@@ -1,238 +1,208 @@
 "use client";
+
 import { useState } from "react";
-import Image from "next/image";
-import { IoSend, IoLocationSharp, IoCall, IoTime } from "react-icons/io5";
+import { IoLocationSharp, IoCheckmarkCircle, IoTime } from "react-icons/io5";
 
 type CityKey = "tomaszow" | "hrubieszow";
 
 export default function Location() {
   const [activeCity, setActiveCity] = useState<CityKey>("tomaszow");
-  const [isAnimating, setIsAnimating] = useState(false);
 
   const locationsData = {
     tomaszow: {
-      name: "Tomaszów Lubelski",
-      address: "ul. Lwowska 15, 22-400",
-      phone: "+48 609 788 088",
-      email: "tomaszow@aktywnaprzemiana.pl",
+      shortName: "Tomaszów",
+      fullName: "Tomaszów Lubelski",
+      address: "ul. Lwowska 15",
       hours: "Pon - Pt: 8:00 - 20:00",
       mapQuery: "Tomaszów Lubelski ul. Lwowska 15",
-      accent: "#00ac49",
-      accentGlow: "rgba(0, 172, 73, 0.4)",
+      color: "#00ac49",
     },
     hrubieszow: {
-      name: "Hrubieszów",
-      address: "ul. 3 Maja 12, 22-500",
-      phone: "+48 609 788 088",
-      email: "hrubieszow@aktywnaprzemiana.pl",
+      shortName: "Hrubieszów",
+      fullName: "Hrubieszów",
+      address: "ul. 3 Maja 12",
       hours: "Pon - Pt: 8:00 - 20:00",
       mapQuery: "Hrubieszów ul. 3 Maja 12",
-      accent: "#3b82f6",
-      accentGlow: "rgba(59, 130, 246, 0.4)",
+      color: "#3b82f6",
     },
   };
 
   const currentData = locationsData[activeCity];
 
-  const handleCityChange = (city: CityKey) => {
-    if (activeCity === city || isAnimating) return;
-    setIsAnimating(true);
-    setTimeout(() => {
-      setActiveCity(city);
-      setIsAnimating(false);
-    }, 250);
-  };
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    alert(
-      `Dziękujemy za zgłoszenie w: ${currentData.name}! Do zobaczenia na treningu.`,
-    );
-  };
-
   return (
     <section
-      id="kontakt"
-      className="relative w-full bg-black text-white overflow-hidden flex flex-col justify-center py-16 sm:py-20"
+      id="lokalizacja"
+      className="relative w-full h-[600px] lg:h-[700px] bg-neutral-900 overflow-hidden"
     >
-      {/* MAPA */}
-      <div className="absolute inset-0 z-0">
-        <iframe
-          key={activeCity}
-          className="w-full h-[120%] sm:h-full" // większa mapa na mobile
-          style={{
-            border: 0,
-            filter: "grayscale(100%) brightness(0.4) contrast(1.2)",
-          }}
-          loading="lazy"
-          src={`https://maps.google.com/maps?q=${encodeURIComponent(
-            currentData.mapQuery,
-          )}&z=15&output=embed`}
-        />
-        <div className="absolute inset-0 bg-black/50 pointer-events-none" />
-      </div>
+      <iframe
+        key={activeCity}
+        className="absolute inset-0 w-full h-full border-0 transition-opacity duration-500"
+        style={{ filter: "grayscale(100%) invert(92%) contrast(85%)" }}
+        loading="lazy"
+        allowFullScreen
+        referrerPolicy="no-referrer-when-downgrade"
+        src={`https://maps.google.com/maps?q=${encodeURIComponent(
+          currentData.mapQuery,
+        )}&z=15&output=embed`}
+      />
 
-      {/* KONTENER */}
-      <div className="relative z-10 w-full max-w-[640px] mx-auto px-3 sm:px-6 flex items-center justify-center">
-        {/* KARTA */}
-        <div
-          className={`
-            w-full 
-            bg-black/95 backdrop-blur-xl
-            border border-white/10
-            rounded-t-[1.5rem] sm:rounded-2xl
-            shadow-[0_0_30px_rgba(0,0,0,0.6)]
-            transition-all duration-300 ease-out
-            ${
-              isAnimating
-                ? "opacity-0 translate-y-4 scale-[0.97]"
-                : "opacity-100 translate-y-0 scale-100"
-            }
-            overflow-y-auto
-            max-h-[90vh] sm:max-h-[90vh]
-          `}
-        >
-          {/* Uchwyt mobile */}
-          <div className="w-full flex justify-center pt-3 pb-2 md:hidden">
-            <div className="w-10 h-1 bg-neutral-600 rounded-full" />
-          </div>
+      <a
+        href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+          currentData.mapQuery,
+        )}`}
+        target="_blank"
+        rel="noreferrer"
+        className="absolute top-6 right-6 z-20 flex items-center gap-2 px-4 py-2 bg-black/60 backdrop-blur-md rounded-full border border-white/10 text-xs font-bold uppercase tracking-widest text-white hover:bg-white hover:text-black transition-all shadow-lg"
+      >
+        <IoLocationSharp />
+        Nawiguj
+      </a>
 
-          {/* CONTENT */}
-          <div className="px-3 py-5 sm:px-6 sm:py-6 md:px-10 md:py-10">
-            {/* HEADER */}
-            <div className="mb-4 sm:mb-6 border-b border-white/10 pb-3 sm:pb-5">
-              <div className="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
-                <div className="flex items-center justify-center shrink-0">
-                  <Image
-                    src="/logo-aktywna.png"
-                    alt="Aktywna Przemiana logo"
-                    width={48}
-                    height={48}
-                    priority
-                    className="w-10 h-10 sm:w-12 sm:h-12"
-                  />
-                </div>
-                <div>
-                  <p className="text-[8px] sm:text-[9px] font-bold tracking-[0.2em] uppercase text-neutral-500">
-                    Aktywna Przemiana
-                  </p>
-                  <h2 className="text-base sm:text-lg md:text-xl font-black leading-tight">
-                    {currentData.name}
-                  </h2>
-                </div>
-              </div>
+      <div className="absolute bottom-0 left-0 w-full z-30 flex justify-center pb-4 md:pb-10 px-4 pointer-events-none">
+        <div className="md:hidden pointer-events-auto w-full max-w-[320px] bg-black/80 backdrop-blur-xl border border-white/10 rounded-full shadow-2xl flex p-1.5">
+          <button
+            onClick={() => setActiveCity("tomaszow")}
+            className={`
+              flex-1 py-2.5 rounded-full text-xs font-bold uppercase tracking-widest transition-all duration-300
+              ${activeCity === "tomaszow" ? "bg-[#00ac49] text-black shadow-md" : "text-gray-400 hover:text-white"}
+            `}
+          >
+            Tomaszów
+          </button>
+          <button
+            onClick={() => setActiveCity("hrubieszow")}
+            className={`
+              flex-1 py-2.5 rounded-full text-xs font-bold uppercase tracking-widest transition-all duration-300
+              ${activeCity === "hrubieszow" ? "bg-blue-600 text-white shadow-md" : "text-gray-400 hover:text-white"}
+            `}
+          >
+            Hrubieszów
+          </button>
+        </div>
 
-              {/* SWITCHER */}
-              <div className="flex bg-neutral-900/60 p-1 rounded-lg border border-white/10 text-[9px] sm:text-[10px]">
-                <button
-                  onClick={() => handleCityChange("tomaszow")}
-                  className={`flex-1 py-1 sm:py-2 font-bold uppercase tracking-widest rounded transition ${
-                    activeCity === "tomaszow"
-                      ? "text-white"
-                      : "text-neutral-500 hover:text-white"
-                  }`}
-                  style={{
-                    background:
-                      activeCity === "tomaszow"
-                        ? locationsData.tomaszow.accent
-                        : "transparent",
-                  }}
+        <div className="hidden md:flex pointer-events-auto w-full max-w-4xl bg-[#0f0f0f]/90 backdrop-blur-xl border border-white/10 rounded-3xl shadow-[0_10px_50px_rgba(0,0,0,0.8)] overflow-hidden flex-row">
+          <button
+            onClick={() => setActiveCity("tomaszow")}
+            className={`
+              relative group flex-1 p-6 md:p-8 flex flex-col items-start justify-between transition-all duration-500 overflow-hidden
+              ${activeCity === "tomaszow" ? "bg-[#00ac49]/5" : "bg-transparent hover:bg-white/5"}
+            `}
+          >
+            {activeCity === "tomaszow" && (
+              <div className="absolute left-0 top-0 bottom-0 w-1 bg-[#00ac49] shadow-[0_0_15px_#00ac49]" />
+            )}
+
+            <div className="flex justify-between w-full items-start mb-4">
+              <div className="text-left">
+                <h3
+                  className={`text-2xl md:text-3xl font-black uppercase tracking-tighter transition-colors ${activeCity === "tomaszow" ? "text-white" : "text-gray-500 group-hover:text-gray-300"}`}
                 >
                   Tomaszów
-                </button>
-                <button
-                  onClick={() => handleCityChange("hrubieszow")}
-                  className={`flex-1 py-1 sm:py-2 font-bold uppercase tracking-widest rounded transition ${
-                    activeCity === "hrubieszow"
-                      ? "text-white"
-                      : "text-neutral-500 hover:text-white"
-                  }`}
-                  style={{
-                    background:
-                      activeCity === "hrubieszow"
-                        ? locationsData.hrubieszow.accent
-                        : "transparent",
-                  }}
+                </h3>
+                <p
+                  className={`text-xs uppercase tracking-widest font-bold mt-1 ${activeCity === "tomaszow" ? "text-[#00ac49]" : "text-gray-600"}`}
+                >
+                  Lubelski
+                </p>
+              </div>
+              {activeCity === "tomaszow" && (
+                <div className="w-8 h-8 rounded-full bg-[#00ac49] flex items-center justify-center text-black shadow-[0_0_10px_#00ac49] animate-pulse">
+                  <IoCheckmarkCircle className="text-xl" />
+                </div>
+              )}
+            </div>
+
+            <div
+              className={`space-y-2 transition-all duration-300 ${activeCity === "tomaszow" ? "opacity-100 translate-y-0" : "opacity-40 -translate-y-2 group-hover:opacity-70 group-hover:translate-y-0"}`}
+            >
+              <div className="flex items-center gap-2 text-xs md:text-sm text-gray-300">
+                <IoLocationSharp
+                  className={
+                    activeCity === "tomaszow"
+                      ? "text-[#00ac49]"
+                      : "text-gray-500"
+                  }
+                />
+                <span>{locationsData.tomaszow.address}</span>
+              </div>
+              <div className="flex items-center gap-2 text-xs md:text-sm text-gray-300">
+                <IoTime
+                  className={
+                    activeCity === "tomaszow"
+                      ? "text-[#00ac49]"
+                      : "text-gray-500"
+                  }
+                />
+                <span>{locationsData.tomaszow.hours}</span>
+              </div>
+            </div>
+
+            {activeCity === "tomaszow" && (
+              <div className="absolute inset-0 bg-gradient-to-br from-[#00ac49]/10 to-transparent pointer-events-none" />
+            )}
+          </button>
+
+          {/* Opcja 2: HRUBIESZÓW */}
+          <button
+            onClick={() => setActiveCity("hrubieszow")}
+            className={`
+              relative group flex-1 p-6 md:p-8 flex flex-col items-start justify-between transition-all duration-500 border-l border-white/5 overflow-hidden
+              ${activeCity === "hrubieszow" ? "bg-blue-500/5" : "bg-transparent hover:bg-white/5"}
+            `}
+          >
+            {activeCity === "hrubieszow" && (
+              <div className="absolute left-0 top-0 bottom-0 w-1 bg-blue-500 shadow-[0_0_15px_#3b82f6]" />
+            )}
+
+            <div className="flex justify-between w-full items-start mb-4">
+              <div className="text-left">
+                <h3
+                  className={`text-2xl md:text-3xl font-black uppercase tracking-tighter transition-colors ${activeCity === "hrubieszow" ? "text-white" : "text-gray-500 group-hover:text-gray-300"}`}
                 >
                   Hrubieszów
-                </button>
+                </h3>
+                <p
+                  className={`text-xs uppercase tracking-widest font-bold mt-1 ${activeCity === "hrubieszow" ? "text-blue-400" : "text-gray-600"}`}
+                >
+                  Lokalizacja
+                </p>
+              </div>
+              {activeCity === "hrubieszow" && (
+                <div className="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center text-white shadow-[0_0_10px_#3b82f6] animate-pulse">
+                  <IoCheckmarkCircle className="text-xl" />
+                </div>
+              )}
+            </div>
+
+            <div
+              className={`space-y-2 transition-all duration-300 ${activeCity === "hrubieszow" ? "opacity-100 translate-y-0" : "opacity-40 -translate-y-2 group-hover:opacity-70 group-hover:translate-y-0"}`}
+            >
+              <div className="flex items-center gap-2 text-xs md:text-sm text-gray-300">
+                <IoLocationSharp
+                  className={
+                    activeCity === "hrubieszow"
+                      ? "text-blue-400"
+                      : "text-gray-500"
+                  }
+                />
+                <span>{locationsData.hrubieszow.address}</span>
+              </div>
+              <div className="flex items-center gap-2 text-xs md:text-sm text-gray-300">
+                <IoTime
+                  className={
+                    activeCity === "hrubieszow"
+                      ? "text-blue-400"
+                      : "text-gray-500"
+                  }
+                />
+                <span>{locationsData.hrubieszow.hours}</span>
               </div>
             </div>
 
-            {/* INFO */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mb-4 sm:mb-5 text-sm">
-              <a
-                href={`tel:${currentData.phone}`}
-                className="flex items-center gap-2 p-2 bg-neutral-900/50 rounded-lg border border-white/5"
-              >
-                <IoCall className="text-base text-neutral-400" />
-                <div>
-                  <p className="text-[9px] text-neutral-500 uppercase font-bold">
-                    Telefon
-                  </p>
-                  <p className="text-sm font-medium">{currentData.phone}</p>
-                </div>
-              </a>
-
-              <div className="flex items-center gap-2 p-2 bg-neutral-900/50 rounded-lg border border-white/5">
-                <IoTime className="text-base text-neutral-400" />
-                <div>
-                  <p className="text-[9px] text-neutral-500 uppercase font-bold">
-                    Otwarte
-                  </p>
-                  <p className="text-sm font-medium">{currentData.hours}</p>
-                </div>
-              </div>
-            </div>
-
-            {/* FORM */}
-            <form onSubmit={handleSubmit} className="space-y-2 sm:space-y-3">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                <input
-                  type="text"
-                  placeholder="Imię"
-                  required
-                  className="w-full bg-neutral-900/80 border border-neutral-700 rounded-lg py-2 px-2 text-sm placeholder-neutral-500 focus:outline-none focus:border-[#00ac49]"
-                />
-                <input
-                  type="tel"
-                  placeholder="Telefon"
-                  required
-                  className="w-full bg-neutral-900/80 border border-neutral-700 rounded-lg py-2 px-2 text-sm placeholder-neutral-500 focus:outline-none focus:border-[#00ac49]"
-                />
-              </div>
-
-              <textarea
-                rows={3}
-                placeholder="Twój cel treningowy..."
-                required
-                className="w-full bg-neutral-900/80 border border-neutral-700 rounded-lg py-2 px-2 text-sm placeholder-neutral-500 focus:outline-none focus:border-[#00ac49] resize-none"
-              />
-
-              <button
-                type="submit"
-                className="w-full flex items-center justify-center gap-1 sm:gap-2 rounded-lg py-2.5 text-sm font-black uppercase tracking-widest text-white active:scale-95 transition"
-                style={{
-                  backgroundColor: currentData.accent,
-                  boxShadow: `0 8px 20px -5px ${currentData.accentGlow}`,
-                }}
-              >
-                Wyślij <IoSend className="text-base sm:text-lg" />
-              </button>
-
-              <a
-                href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
-                  currentData.mapQuery,
-                )}`}
-                target="_blank"
-                rel="noreferrer"
-                className="w-full flex items-center justify-center gap-1 sm:gap-2 border border-white/20 rounded-lg py-2 text-xs font-bold uppercase tracking-widest text-neutral-300 hover:text-white hover:bg-white/5 transition"
-              >
-                <IoLocationSharp className="text-sm sm:text-base" />
-                Nawiguj do nas
-              </a>
-            </form>
-          </div>
+            {activeCity === "hrubieszow" && (
+              <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-transparent pointer-events-none" />
+            )}
+          </button>
         </div>
       </div>
     </section>

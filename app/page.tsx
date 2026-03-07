@@ -10,6 +10,8 @@ import { Metadata } from "next";
 import Trainers from "@/components/Trainers";
 import Socials from "@/components/Socials";
 import Process from "@/components/Process";
+import Contact from "@/components/Contact";
+import Faq from "@/components/Faq";
 
 export const metadata: Metadata = {
   title: "Aktywna Przemiana | Trening Personalny i EMS",
@@ -29,7 +31,9 @@ export default function StudioPage() {
       <Benefits />
       <Gallery />
       <Socials />
+      <Faq />
       <Location />
+      <Contact />
       <Footer />
     </main>
   );
